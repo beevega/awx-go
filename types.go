@@ -1,7 +1,6 @@
 package awx
 
 import (
-	"fmt"
 	"strings"
 	"time"
 )
@@ -778,42 +777,46 @@ type CancelJobResponse struct {
 	Detail string `json:"detail"`
 }
 
-func (l *ListOrganizations) GetByName(name string) (*Organization, error) {
+// GetByName returns an Organization by 'Name' field case-insensitive.
+func (l *ListOrganizations) GetByName(name string) (*Organization, bool) {
 	for _, organizationRow := range l.Results {
 		if strings.EqualFold(organizationRow.Name, name) {
-			return organizationRow, nil
+			return organizationRow, true
 		}
 	}
 
-	return nil, fmt.Errorf("job template '%s' not found", name)
+	return nil, false
 }
 
-func (l *ListJobTemplates) GetByName(name string) (*JobTemplate, error) {
+// GetByName returns an JobTemplate by 'Name' field case-insensitive.
+func (l *ListJobTemplates) GetByName(name string) (*JobTemplate, bool) {
 	for _, templateRow := range l.Results {
 		if strings.EqualFold(templateRow.Name, name) {
-			return templateRow, nil
+			return templateRow, true
 		}
 	}
 
-	return nil, fmt.Errorf("job template '%s' not found", name)
+	return nil, false
 }
 
-func (l *ListInventories) GetByName(name string) (*Inventory, error) {
+// GetByName returns an Inventory by 'Name' field case-insensitive.
+func (l *ListInventories) GetByName(name string) (*Inventory, bool) {
 	for _, inventoryRow := range l.Results {
 		if strings.EqualFold(inventoryRow.Name, name) {
-			return inventoryRow, nil
+			return inventoryRow, true
 		}
 	}
 
-	return nil, fmt.Errorf("inventory '%s' not found", name)
+	return nil, false
 }
 
-func (l *ListHosts) GetByName(name string) (*Host, error) {
+// GetByName returns an Host by 'Name' field case-insensitive.
+func (l *ListHosts) GetByName(name string) (*Host, bool) {
 	for _, hostRow := range l.Results {
 		if strings.EqualFold(hostRow.Name, name) {
-			return hostRow, nil
+			return hostRow, true
 		}
 	}
 
-	return nil, fmt.Errorf("host '%s' not found", name)
+	return nil, false
 }
