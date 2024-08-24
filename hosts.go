@@ -111,3 +111,16 @@ func (h *HostService) DeleteHost(ctx context.Context, id int) error {
 
 	return nil
 }
+
+// ListInventoryHosts shows list of awx Hosts from specified inventory.
+func (h *HostService) ListInventoryHosts(ctx context.Context, inventoryId int) (*ListHosts, error) {
+	result := ListHosts{}
+	endpoint := fmt.Sprintf("/api/v2/inventories/%d/hosts/", inventoryId)
+
+	_, err := h.Requester.Get(ctx, endpoint, &result, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return &result, nil
+}
