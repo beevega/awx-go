@@ -737,6 +737,12 @@ type Group struct {
 	HasInventorySources      bool      `json:"has_inventory_sources"`
 }
 
+// ListGroups represents `ListGroups` endpoint response.
+type ListGroups struct {
+	Pagination
+	Results []*Group `json:"results"`
+}
+
 // Host represents a host
 type Host struct {
 	ID                   int         `json:"id"`
@@ -815,6 +821,17 @@ func (l *ListHosts) GetByName(name string) (*Host, bool) {
 	for _, hostRow := range l.Results {
 		if strings.EqualFold(hostRow.Name, name) {
 			return hostRow, true
+		}
+	}
+
+	return nil, false
+}
+
+// GetByName returns an Group by 'Name' field case-insensitive.
+func (l *ListGroups) GetByName(name string) (*Group, bool) {
+	for _, groupRow := range l.Results {
+		if strings.EqualFold(groupRow.Name, name) {
+			return groupRow, true
 		}
 	}
 

@@ -10,6 +10,7 @@ type Client struct {
 	HostService          *HostService
 	JobService           *JobService
 	OrganizationsService *OrganizationsService
+	GroupService         *GroupService
 }
 
 func NewClient(baseURL string, username string, password string) (*Client, error) {
@@ -39,6 +40,9 @@ func NewClient(baseURL string, username string, password string) (*Client, error
 			Requester: &requester,
 		},
 		OrganizationsService: &OrganizationsService{
+			Requester: &requester,
+		},
+		GroupService: &GroupService{
 			Requester: &requester,
 		},
 	}
@@ -72,6 +76,9 @@ func NewClientWithToken(baseURL string, token string) (*Client, error) {
 			Requester: &requester,
 		},
 		OrganizationsService: &OrganizationsService{
+			Requester: &requester,
+		},
+		GroupService: &GroupService{
 			Requester: &requester,
 		},
 	}
