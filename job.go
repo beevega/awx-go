@@ -86,3 +86,19 @@ func (j *JobService) GetJobEvents(ctx context.Context, id int, params map[string
 
 	return &result, nil
 }
+
+// GetJobStdout get a stdout result of finished job.
+func (j *JobService) GetJobStdout(ctx context.Context, id int, params map[string]string) (*JobStdout, error) {
+	result := JobStdout{}
+	endpoint := fmt.Sprintf("/api/v2/jobs/%d/stdout/", id)
+
+	// Hard set format=json
+	params["format"] = "json"
+
+	_, err := j.Requester.Get(ctx, endpoint, &result, params)
+	if err != nil {
+		return nil, err
+	}
+
+	return &result, nil
+}
